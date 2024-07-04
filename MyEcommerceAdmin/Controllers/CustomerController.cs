@@ -11,24 +11,27 @@ namespace MyEcommerceAdmin.Controllers
     public class CustomerController : Controller
     {
         MyEcommerceDbContext db = new MyEcommerceDbContext();
-        // GET: Customer
+
+        // GET: Customer/Index
+        // Hiển thị danh sách khách hàng
         public ActionResult Index()
         {
             return View(db.Customers.ToList());
         }
 
-        // CREATE: Customer
-
+        // GET: Customer/Create
+        // Hiển thị form tạo mới khách hàng
         public ActionResult Create()
         {
             return View();
         }
 
+        // POST: Customer/Create
+        // Xử lý tạo mới khách hàng
         [HttpPost]
-
+        [ValidateAntiForgeryToken]
         public ActionResult Create(CustomerVM cvm)
         {
-
             if (ModelState.IsValid)
             {
                 if (cvm.Picture != null)
@@ -43,7 +46,7 @@ namespace MyEcommerceAdmin.Controllers
                         Last_Name = cvm.Last_Name,
                         UserName = cvm.UserName,
                         Password = cvm.Password,
-                        Gender= cvm.Gender,
+                        Gender = cvm.Gender,
                         DateofBirth = cvm.DateofBirth,
                         Country = cvm.Country,
                         City = cvm.City,
@@ -65,8 +68,8 @@ namespace MyEcommerceAdmin.Controllers
             return PartialView("_Error");
         }
 
-
-        // EDIT: Customer
+        // GET: Customer/Edit/{id}
+        // Hiển thị form chỉnh sửa khách hàng
         public ActionResult Edit(int id)
         {
             Customer cus = db.Customers.Find(id);
@@ -91,15 +94,16 @@ namespace MyEcommerceAdmin.Controllers
                 LastLogin = cus.LastLogin,
                 Created = cus.Created,
                 Notes = cus.Notes
-
             };
             return View(cvm);
         }
 
+        // POST: Customer/Edit
+        // Xử lý cập nhật khách hàng
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(CustomerVM cvm)
         {
-
             if (ModelState.IsValid)
             {
                 string filePath = cvm.PicturePath;
@@ -107,65 +111,39 @@ namespace MyEcommerceAdmin.Controllers
                 {
                     filePath = Path.Combine("~/Images", Guid.NewGuid().ToString() + Path.GetExtension(cvm.Picture.FileName));
                     cvm.Picture.SaveAs(Server.MapPath(filePath));
+                }
 
-                    Customer c = new Customer
-                    {
-                        CustomerID = cvm.CustomerID,
-                        First_Name = cvm.First_Name,
-                        Last_Name = cvm.Last_Name,
-                        UserName = cvm.UserName,
-                        Password = cvm.Password,
-                        Gender = cvm.Gender,
-                        DateofBirth = cvm.DateofBirth,
-                        Country = cvm.Country,
-                        City = cvm.City,
-                        PostalCode = cvm.PostalCode,
-                        Email = cvm.Email,
-                        Phone = cvm.Phone,
-                        Address = cvm.Address,
-                        PicturePath = filePath,
-                        status = cvm.status,
-                        LastLogin = cvm.LastLogin,
-                        Created = cvm.Created,
-                        Notes = cvm.Notes
-                    };
-                    db.Entry(c).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                else
+                Customer c = new Customer
                 {
-                    Customer c = new Customer
-                    {
-                        CustomerID = cvm.CustomerID,
-                        First_Name = cvm.First_Name,
-                        Last_Name = cvm.Last_Name,
-                        UserName = cvm.UserName,
-                        Password = cvm.Password,
-                        Gender = cvm.Gender,
-                        DateofBirth = cvm.DateofBirth,
-                        Country = cvm.Country,
-                        City = cvm.City,
-                        PostalCode = cvm.PostalCode,
-                        Email = cvm.Email,
-                        Phone = cvm.Phone,
-                        Address = cvm.Address,
-                        PicturePath = filePath,
-                        status = cvm.status,
-                        LastLogin = cvm.LastLogin,
-                        Created = cvm.Created,
-                        Notes = cvm.Notes
-                    };
-                    db.Entry(c).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
+                    CustomerID = cvm.CustomerID,
+                    First_Name = cvm.First_Name,
+                    Last_Name = cvm.Last_Name,
+                    UserName = cvm.UserName,
+                    Password = cvm.Password,
+                    Gender = cvm.Gender,
+                    DateofBirth = cvm.DateofBirth,
+                    Country = cvm.Country,
+                    City = cvm.City,
+                    PostalCode = cvm.PostalCode,
+                    Email = cvm.Email,
+                    Phone = cvm.Phone,
+                    Address = cvm.Address,
+                    PicturePath = filePath,
+                    status = cvm.status,
+                    LastLogin = cvm.LastLogin,
+                    Created = cvm.Created,
+                    Notes = cvm.Notes
+                };
+
+                db.Entry(c).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            return PartialView(cvm);
+            return View(cvm);
         }
 
-        // DITELS: Customer
-
+        // GET: Customer/Details/{id}
+        // Hiển thị chi tiết khách hàng
         public ActionResult Details(int id)
         {
             Customer cus = db.Customers.Find(id);
@@ -190,15 +168,16 @@ namespace MyEcommerceAdmin.Controllers
                 LastLogin = cus.LastLogin,
                 Created = cus.Created,
                 Notes = cus.Notes
-
             };
             return View(cvm);
         }
 
+        // POST: Customer/Details
+        // Xử lý khi người dùng gửi yêu cầu từ form chi tiết khách hàng
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Details(CustomerVM cvm)
         {
-
             if (ModelState.IsValid)
             {
                 string filePath = cvm.PicturePath;
@@ -206,65 +185,39 @@ namespace MyEcommerceAdmin.Controllers
                 {
                     filePath = Path.Combine("~/Images", Guid.NewGuid().ToString() + Path.GetExtension(cvm.Picture.FileName));
                     cvm.Picture.SaveAs(Server.MapPath(filePath));
+                }
 
-                    Customer c = new Customer
-                    {
-                        CustomerID = cvm.CustomerID,
-                        First_Name = cvm.First_Name,
-                        Last_Name = cvm.Last_Name,
-                        UserName = cvm.UserName,
-                        Password = cvm.Password,
-                        Gender = cvm.Gender,
-                        DateofBirth = cvm.DateofBirth,
-                        Country = cvm.Country,
-                        City = cvm.City,
-                        PostalCode = cvm.PostalCode,
-                        Email = cvm.Email,
-                        Phone = cvm.Phone,
-                        Address = cvm.Address,
-                        PicturePath = filePath,
-                        status = cvm.status,
-                        LastLogin = cvm.LastLogin,
-                        Created = cvm.Created,
-                        Notes = cvm.Notes
-                    };
-                    db.Entry(c).State = System.Data.Entity.EntityState.Unchanged;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                else
+                Customer c = new Customer
                 {
-                    Customer c = new Customer
-                    {
-                        CustomerID = cvm.CustomerID,
-                        First_Name = cvm.First_Name,
-                        Last_Name = cvm.Last_Name,
-                        UserName = cvm.UserName,
-                        Password = cvm.Password,
-                        Gender = cvm.Gender,
-                        DateofBirth = cvm.DateofBirth,
-                        Country = cvm.Country,
-                        City = cvm.City,
-                        PostalCode = cvm.PostalCode,
-                        Email = cvm.Email,
-                        Phone = cvm.Phone,
-                        Address = cvm.Address,
-                        PicturePath = filePath,
-                        status = cvm.status,
-                        LastLogin = cvm.LastLogin,
-                        Created = cvm.Created,
-                        Notes = cvm.Notes
-                    };
-                    db.Entry(c).State = System.Data.Entity.EntityState.Unchanged;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
+                    CustomerID = cvm.CustomerID,
+                    First_Name = cvm.First_Name,
+                    Last_Name = cvm.Last_Name,
+                    UserName = cvm.UserName,
+                    Password = cvm.Password,
+                    Gender = cvm.Gender,
+                    DateofBirth = cvm.DateofBirth,
+                    Country = cvm.Country,
+                    City = cvm.City,
+                    PostalCode = cvm.PostalCode,
+                    Email = cvm.Email,
+                    Phone = cvm.Phone,
+                    Address = cvm.Address,
+                    PicturePath = filePath,
+                    status = cvm.status,
+                    LastLogin = cvm.LastLogin,
+                    Created = cvm.Created,
+                    Notes = cvm.Notes
+                };
+
+                db.Entry(c).State = System.Data.Entity.EntityState.Unchanged;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
             return PartialView(cvm);
         }
 
-        // DELETE: Customer
-
+        // GET: Customer/Delete/{id}
+        // Hiển thị form xác nhận xóa khách hàng
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -279,6 +232,8 @@ namespace MyEcommerceAdmin.Controllers
             return View(customer);
         }
 
+        // POST: Customer/Delete
+        // Xử lý xóa khách hàng
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirm(int id)
@@ -295,7 +250,5 @@ namespace MyEcommerceAdmin.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-
     }
 }

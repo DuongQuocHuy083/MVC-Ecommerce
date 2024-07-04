@@ -49,23 +49,44 @@
                                 int i = 0;
                                 foreach (var item in Model)
                                 {
-            <tr>
-                @Html.Hidden("shcartID-" + i + "", item.ProductID)
+                                    <tr>
+                                        @Html.Hidden("shcartID-" + i + "", item.ProductID)
 
-                <td><a class="remove" href="@Url.Action("Remove", "MyCart", new { id = item.ProductID })"><fa class="fa fa-close"></fa></a></td>
-                <td><a href="#"><img src="@Url.Content(item.Product.PicturePath)" alt=""></a></td>
-                <td><a class="aa-cart-title" href="#">@item.Product.Name</a></td>
-                <td id="itemPrice-@(i)">@item.UnitPrice</td>
-                <td><input id="itemQty-@(i)" name="Qty-@(i)" class="aa-cart-quantity" type="number" maxlength="2" min="1" max="99" value="@(item.Quantity==null ? "1": item.Quantity.ToString())" /></td>
-                <td><strong id="itemAmount-@(i)">@item.TotalAmount</strong></td>
+                                    <tr>
+                                        <td>
+                                            <a class="btn btn-danger remove" href="@Url.Action("Remove", "MyCart", new { id = item.ProductID })">
+                                                <i class="fa fa-close"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#">
+                                                <img src="@Url.Content(item.Product.PicturePath)" alt="" class="img-fluid rounded">
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="aa-cart-title text-decoration-none" href="#">@item.Product.Name</a>
+                                        </td>
+                                        <td id="itemPrice-@(i)">
+                                            @item.UnitPrice
+                                        </td>
+                                        <td>
+                                            <input id="itemQty-@(i)" name="Qty-@(i)" class="form-control aa-cart-quantity" type="number" maxlength="2" min="1" max="99" value="@(item.Quantity == null ? "1" : item.Quantity.ToString())" />
+                                        </td>
+                                        <td>
+                                            <strong id="itemAmount-@(i)">
+                                                @item.TotalAmount
+                                            </strong>
+                                        </td>
+                                    </tr>
 
 
-            </tr> i++;
+
+                                    </tr> i++;
                                 }
                             }
                             else
                             {
-            <text>Please login to view your cart</text>}
+                                <text>Please login to view your cart</text>}
 
                         </tbody>
                     </table>

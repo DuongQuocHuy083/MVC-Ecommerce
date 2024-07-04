@@ -8,7 +8,10 @@
         <h2 class="text-info">Product List</h2>
         <hr />
         <div class="d-flex justify-content-end mb-2">
-            <a href="@Url.Action("Create", "Product")" class="btn btn btn-outline-primary"><i class="fa-regular fa-square-plus fs-1"></i></a>
+            <a href="@Url.Action("Create", "Product")" class="btn btn-outline-primary">
+                <i class="far fa-square-plus"></i> Create
+            </a>
+
         </div>
         <div class="table-responsive">
             <table class="table table-condensed table-hover table-bordered table-striped table">
@@ -34,10 +37,21 @@
                             <td>@Html.DisplayFor(p => pdt.UnitPrice)</td>
                             <td>@Html.DisplayFor(p => pdt.UnitInStock)</td>
                             <td>
-                                <a href="@Url.Action("Edit", "Product", new {id = pdt.ProductID })" class="btn btn-outline-warning btn-sm"><i class="fa-solid fa-pen-to-square fs-4"></i></a>
-                                <a href="@Url.Action("Details", "Product", new {id = pdt.ProductID })" class="btn btn-outline-info btn-sm"><i class="fa-regular fa-circle-info fs-4"></i></a>
-                                <a href="@Url.Action("Delete", "Product", new {id = pdt.ProductID })" class="btn btn-outline-danger btn-sm"><i class="fa-regular fa-trash-arrow-up fs-4"></i></a>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a href="@Url.Action("Edit", "Product", new { id = pdt.ProductID })" class="btn btn-outline-warning btn-sm">
+                                        <i class="fas fa-pen-to-square"></i> Edit
+                                    </a>
+
+                                    <a href="@Url.Action("Details", "Product", new { id = pdt.ProductID })" class="btn btn-outline-info btn-sm">
+                                        <i class="far fa-circle-info"></i> Details
+                                    </a>
+
+                                    <a href="@Url.Action("Delete", "Product", new { id = pdt.ProductID })" class="btn btn-outline-danger btn-sm">
+                                        <i class="far fa-trash-arrow-up"></i> Delete
+                                    </a>
+                                </div>
                             </td>
+
                         </tr>
                     }
                 </tbody>

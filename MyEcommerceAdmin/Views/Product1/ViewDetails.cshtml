@@ -7,6 +7,19 @@
 
  }
 <link href="~/Content/MyContent/css/style.css" rel="stylesheet" />
+<!-- Start Promo section -->
+<section id="aa-promo">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="aa-promo-area">
+                    <div class="row">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- product category -->
 <section id="aa-product-details">
     <div class="container">
@@ -62,13 +75,11 @@
                                         </form>
                                     </div>
                                     <div class="aa-prod-view-bottom">
-                                        @if (Model.UnitInStock > 0)
-                                        {
-                                            <a class="aa-add-to-cart-btn" href="@(Session["username"] != null ? Url.Action("AddToCart", "Product1", new { id=Model.ProductID}) : Url.Action("Login", "Account"))">Add To Cart</a> }
-                                        else
-                                        {
-                                            <a class="aa-add-to-cart-btn" ))">Add To Cart</a>}
-                                        <a class="aa-add-to-cart-btn" href="@(Session["username"] != null ? Url.Action("WishList", "Product1", new { id = Model.ProductID }) : Url.Action("Login", "Account"))">Wishlist</a>
+
+
+                                        <a class="aa-add-to-cart-btn" href="@(Session["username"] != null ? Url.Action("AddToCart", "Product1", new { id=Model.ProductID}) : Url.Action("Login", "Account"))">Thêm vào giỏ hàng</a>
+
+                                        <a class="aa-add-to-cart-btn" href="@(Session["username"] != null ? Url.Action("WishList", "Product1", new { id = Model.ProductID }) : Url.Action("Login", "Account"))">thêm vào danh </a>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +95,7 @@
                         <div class="tab-content">
                             <div class="tab-pane fade in active" id="description">
                                 <p>@Model.ShortDescription</p>
-                               
+
                             </div>
                             <div class="tab-pane fade " id="review">
                                 <div class="aa-product-review-area">

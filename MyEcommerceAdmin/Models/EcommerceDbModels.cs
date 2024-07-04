@@ -7,10 +7,10 @@ using System.Web;
 
 namespace MyEcommerceAdmin.Models
 {
-    public partial class MyEcommerceDbContext : DbContext
+    public class MyEcommerceDbContext : DbContext
     {
         public MyEcommerceDbContext()
-            : base("name=MyEcommerceDbContext")
+            : base(nameOrConnectionString:"MyEcommerceDbContext")
         {
         }
 
@@ -38,4 +38,6 @@ namespace MyEcommerceAdmin.Models
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
     }
+
+       
 }

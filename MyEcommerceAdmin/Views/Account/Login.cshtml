@@ -12,23 +12,23 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="aa-myaccount-login">
-                                <h4>Login</h4>
+                                <h4>Đăng nhập</h4>
 
                                 @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "aa-login-form" }))
                                 {
-                                    <label for="">Username or Email address<span>*</span></label>
+                                    <label for="">Tên người dùng hoặc địa chỉ email<span>*</span></label>
                                     <input name="UserName" type="text" required placeholder="Username">
                                     <label for="">Password<span>*</span></label>
                                     <input name="Password" type="password" required placeholder="Password">
-                                    <button type="submit" class="btn btn-success">Login</button>
-                                    <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-                                    <p class="aa-lost-password"><a href="#">Lost your password?</a></p>}
+                                    <button type="submit" class="btn btn-success">Đăng nhập</button>
+                                    <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Nhớ tài khoản </label>
+                                    <p class="aa-lost-password"><a href="#">Quên mật khẩu?</a></p>}
 
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="aa-myaccount-register">
-                                <h4>don't have any account?</h4>
+                                <h4>Chưa có tài khoản?</h4>
                                 @*
                                     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "aa-login-form" }))
                                     {
@@ -56,9 +56,9 @@
                                         <button type="submit" class="btn btn-primary">Register</button>
                                       }*@
 
-                                <h3 class="text-info">Click the button below to create a new account</h3>
+                            <h3 class="text-info">Nhấn vào nút bên dưới để tạo tài khoản mới</h3>
 
-                                <a href="@Url.Action("RegisterCustomer", "Account")" class="btn btn-primary btn-block fs-2">Register Now</a>
+                                <a href="@Url.Action("RegisterCustomer", "Account")" class="btn btn-primary btn-block fs-2">Đăng ký</a>
 
 
                             </div>

@@ -76,7 +76,7 @@
                     <div class="aa-product-catg-body">
                         <ul class="aa-product-catg">
                             <!-- start single product item -->
-                            @if (Model != null || Model.Count > 0)
+                            @if (Model != null && Model.Count > 0)
                             {
                                 foreach (var item in Model)
                                 {
@@ -125,9 +125,7 @@
                             @using (Html.BeginForm("FilterByPrice", "Product1", FormMethod.Get))
                             {
 
-                                <input type="range" min="0" max="100" onchange="updateMinInput(this.value);"> <br />
-                                <input type="range" min="0" max="100" onchange="updateMaxInput(this.value);">
-                                <br />
+                                
                                 <input type="number" name="minPrice" id="minValue" min="0" maxlength="6" max="999999" value="00" size="6">
                                 <input type="number" name="maxPrice" id="maxValue" min="0" maxlength="6" max="999999" value="00" size="6"> <br /><br />
                                 <button class="aa-filter-btn" type="submit" style="background-color:blue">Filter</button>}
@@ -146,39 +144,7 @@
                             }
                         </ul>
                     </div>
-                    <!-- single sidebar -->
-                    @*<div class="aa-sidebar-widget">
-            <h3>Tags</h3>
-            <div class="tag-cloud">
-                <a href="#">Fashion</a>
-                <a href="#">Ecommerce</a>
-                <a href="#">Shop</a>
-                <a href="#">Hand Bag</a>
-                <a href="#">Laptop</a>
-                <a href="#">Head Phone</a>
-                <a href="#">Pen Drive</a>
-            </div>
-        </div>*@
-
-
-                    <!-- single sidebar -->
-                    @*<div class="aa-sidebar-widget">
-            <h3>Top Sold Products</h3>
-            <div class="aa-recently-views">
-                <ul>
-                    @foreach (MyEcommerceAdmin.Models.TopSoldProduct item in ViewBag.TopRatedProducts)
-                    {
-
-        <li>
-            <a href="@Url.Action("ViewDetails", "Product1", new { id = item.product.ProductID })" class="aa-cartbox-img"><img alt="" src="@Url.Content(item.product.PicturePath)"></a>
-            <div class="aa-cartbox-info">
-                <h4> <b><a href="@Url.Action("ViewDetails", "Product", new { id = item.product.ProductID })">@item.product.Name</a></b></h4>
-                <p>Sold: @item.CountSold</p>
-            </div>
-        </li>}
-                </ul>
-            </div>
-        </div>*@
+                  
 
 
                 </aside>

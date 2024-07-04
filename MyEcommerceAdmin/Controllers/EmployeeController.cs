@@ -5,9 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MyEcommerceAdmin.Models;
+
 namespace MyEcommerceAdmin.Controllers
 {
-    
     public class EmployeeController : Controller
     {
         MyEcommerceDbContext db = new MyEcommerceDbContext();
@@ -20,24 +20,25 @@ namespace MyEcommerceAdmin.Controllers
 
         // CREATE: Employee
 
-
+        // Hiển thị form tạo mới nhân viên
         public ActionResult Create()
         {
             return View();
         }
 
+        // Xử lý tạo mới nhân viên khi POST
         [HttpPost]
-
         public ActionResult Create(EmployeeVM evm)
         {
-
             if (ModelState.IsValid)
             {
-                if (evm.Picture !=null)
+                if (evm.Picture != null)
                 {
+                    // Lưu hình ảnh và đường dẫn vào thư mục ~/Images
                     string filePath = Path.Combine("~/Images", Guid.NewGuid().ToString() + Path.GetExtension(evm.Picture.FileName));
                     evm.Picture.SaveAs(Server.MapPath(filePath));
 
+                    // Tạo đối tượng nhân viên và lưu vào cơ sở dữ liệu
                     admin_Employee e = new admin_Employee
                     {
                         EmpID = evm.EmpID,
@@ -60,6 +61,7 @@ namespace MyEcommerceAdmin.Controllers
 
         // EDIT: Employee
 
+        // Hiển thị form chỉnh sửa thông tin nhân viên
         public ActionResult Edit(int id)
         {
             admin_Employee emp = db.admin_Employee.Find(id);
@@ -75,21 +77,20 @@ namespace MyEcommerceAdmin.Controllers
                 Address = emp.Address,
                 Phone = emp.Phone,
                 PicturePath = emp.PicturePath
-
             };
             return View(evm);
         }
 
+        // Xử lý chỉnh sửa thông tin nhân viên khi POST
         [HttpPost]
-
         public ActionResult Edit(EmployeeVM evm)
         {
-
             if (ModelState.IsValid)
             {
                 string filePath = evm.PicturePath;
                 if (evm.Picture != null)
                 {
+                    // Lưu hình ảnh mới và cập nhật thông tin nhân viên
                     filePath = Path.Combine("~/Images", Guid.NewGuid().ToString() + Path.GetExtension(evm.Picture.FileName));
                     evm.Picture.SaveAs(Server.MapPath(filePath));
 
@@ -131,10 +132,9 @@ namespace MyEcommerceAdmin.Controllers
             return PartialView(evm);
         }
 
-
-
         // VIEW: Employee Details
 
+        // Hiển thị thông tin chi tiết của nhân viên
         public ActionResult Info(int id)
         {
             admin_Employee emp = db.admin_Employee.Find(id);
@@ -150,21 +150,20 @@ namespace MyEcommerceAdmin.Controllers
                 Address = emp.Address,
                 Phone = emp.Phone,
                 PicturePath = emp.PicturePath
-
             };
             return View(evm);
         }
 
+        // Xử lý cập nhật thông tin nhân viên khi POST
         [HttpPost]
-
         public ActionResult Info(EmployeeVM evm)
         {
-
             if (ModelState.IsValid)
             {
                 string filePath = evm.PicturePath;
                 if (evm.Picture != null)
                 {
+                    // Lưu hình ảnh mới và cập nhật thông tin nhân viên
                     filePath = Path.Combine("~/Images", Guid.NewGuid().ToString() + Path.GetExtension(evm.Picture.FileName));
                     evm.Picture.SaveAs(Server.MapPath(filePath));
 
@@ -206,9 +205,9 @@ namespace MyEcommerceAdmin.Controllers
             return PartialView(evm);
         }
 
-
         // DELETE: Employee
 
+        // Hiển thị trang xác nhận xóa nhân viên
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -223,6 +222,7 @@ namespace MyEcommerceAdmin.Controllers
             return View(employee);
         }
 
+        // Xử lý xác nhận xóa nhân viên khi POST
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirm(int id)
@@ -239,6 +239,5 @@ namespace MyEcommerceAdmin.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
     }
 }

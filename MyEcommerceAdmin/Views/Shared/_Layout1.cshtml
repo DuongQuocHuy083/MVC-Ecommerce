@@ -68,45 +68,45 @@
                                 <div class="aa-currency">
                                     <div class="dropdown">
                                         <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            <i class="fa fa-money"></i>BDT
+                                            <i class="fa fa-money"></i>VND
                                         </a>
                                     </div>
                                 </div>
                                 <!-- start cellphone -->
                                 <div class="cellphone hidden-xs">
-                                    <p><span class="fa fa-phone"></span>017-6558-6588</p>
+                                    <p><span class="fa fa-phone"></span>0909-083-117</p>
                                 </div>
                             </div>
                             <!-- header top Right -->
                             <div class="aa-header-top-right">
                                 <ul class="aa-head-top-nav-right">
 
-                                    <li><a href="@(Session["username"] != null ? Url.Action("Index", "Account") : Url.Action("Login", "Account"))">My Account</a></li>
+                                    <li><a href="@(Session["username"] != null ? Url.Action("Index", "Account") : Url.Action("Login", "Account"))">Tài khoản của tôi</a></li>
 
                                     <li class="hidden-xs">
                                         <a href="@(Session["username"] != null ? Url.Action("Index", "WishList") : Url.Action("Login", "Account"))">
-                                            Wishlist @if (@ViewBag.WlItemsNo > 0)
+                                            Danh sách yêu thích @if (@ViewBag.WlItemsNo > 0)
                                             {<text>(@ViewBag.WlItemsNo)</text>}
                                         </a>
                                     </li>
 
                                     <li class="hidden-xs">
                                         <a href="@(Session["username"] != null ? Url.Action("Index", "MyCart") : Url.Action("Login", "Account"))">
-                                            My Cart @if (@ViewBag.NoOfItem > 0)
+                                            Giỏ hàng @if (@ViewBag.NoOfItem > 0)
                                             {<text>(@ViewBag.NoOfItem)</text>}
                                         </a>
                                     </li>
 
-                                    <li class="hidden-xs"><a href="@(Session["username"] != null ? Url.Action("Index", "CheckOut") : Url.Action("Login", "Account"))">Checkout</a></li>
+                                    <li class="hidden-xs"><a href="@(Session["username"] != null ? Url.Action("Index", "CheckOut") : Url.Action("Login", "Account"))">Đăng xuất</a></li>
 
                                     @if (Session["username"] == null)
                                     {
 
-                                        <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                                        <li>@Html.ActionLink("Đăng nhập", "Login" , "Account")</li>
                                     }
                                     else
                                     {
-                                        <li><a href="@Url.Action("Logout","Account")">Logout</a></li>
+                                       
                                         <li><a href="">@Session["username"]</a></li>
                                     }
                                 </ul>
@@ -127,7 +127,7 @@
                                 <!-- Text based logo -->
                                 <a href="@Url.Action("Index","Home")">
                                     <span class="fa fa-shopping-cart"></span>
-                                    <p>IsDB-BISEW<strong>.ORG</strong> <span>Trusted Online Shop</span></p>
+                                    <p>3conMeo<strong>.ORG</strong> <span>Ecommerce</span></p>
                                 </a>
                             </div>
 
@@ -135,7 +135,7 @@
                             <div class="aa-cartbox">
                                 <a class="aa-cart-link" href="#">
                                     <span class="fa fa-shopping-basket"></span>
-                                    <span class="aa-cart-title">SHOPPING CART</span>
+                                    <span class="aa-cart-title">Giỏ hàng</span>
                                     <span class="aa-cart-notify">@(ViewBag.NoOfItem==null ? 0 :ViewBag.NoOfItem)</span>
                                 </a>
 
@@ -186,7 +186,7 @@
                     <div class="navbar-collapse collapse" style="background-color:forestgreen">
                         <!-- Left nav -->
                         <ul class="nav navbar-nav">
-                            <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                           @* <li><a href="@Url.Action("Index","Home")">Home</a></li>*@
 
                             @{ MyEcommerceAdmin.Models.MyEcommerceDbContext db = new MyEcommerceAdmin.Models.MyEcommerceDbContext();
 
@@ -244,26 +244,26 @@
                             <div class="row">
                                 <div class="col-md-3 col-sm-6">
                                     <div class="aa-footer-widget">
-                                        <h3>Important Links</h3>
+                                        <h3>liên kết quan trọng</h3>
                                         <ul class="aa-footer-nav">
-                                            <li><a href="@Url.Action("Index", "admin_Login")">Admin Login</a></li>
-                                            <li><a href="#">Our Services</a></li>
-                                            <li><a href="#">Our Products</a></li>
-                                            <li><a href="#">About Us</a></li>
-                                            <li><a href="#">Contact Us</a></li>
+                                            <li><a href="@Url.Action("Index", "admin_Login")">Đăng nhập Admin</a></li>
+                                            <li><a href="#">Dịch vụ của chúng tôi</a></li>
+                                            <li><a href="#">Sản phẩm của chúng tôi</a></li>
+                                            <li><a href="#">Về chúng tôi</a></li>
+                                            <li><a href="#">Liên hệ</a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-6">
                                     <div class="aa-footer-widget">
                                         <div class="aa-footer-widget">
-                                            <h3>Policy</h3>
+                                            <h3>Chính sách</h3>
                                             <ul class="aa-footer-nav">
-                                                <li><a href="#">Delivery</a></li>
-                                                <li><a href="#">Returns</a></li>
-                                                <li><a href="#">Services</a></li>
-                                                <li><a href="#">Discount</a></li>
-                                                <li><a href="#">Special Offer</a></li>
+                                                <li><a href="#">Giao hàng</a></li>
+                                                <li><a href="#">Đổi trả</a></li>
+                                                <li><a href="#">Dịch vụ</a></li>
+                                                <li><a href="#">Giảm giá</a></li>
+                                                <li><a href="#">Ưu đãi đặc biệt</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -271,7 +271,7 @@
                                 <div class="col-md-3 col-sm-6">
                                     <div class="aa-footer-widget">
                                         <div class="aa-footer-widget">
-                                            <h3>Useful Links</h3>
+                                            <h3>liên kết hữu ích</h3>
                                             <ul class="aa-footer-nav">
                                                 <li><a href="#">Site Map</a></li>
                                                 <li><a href="#">Search</a></li>
@@ -285,9 +285,9 @@
                                 <div class="col-md-3 col-sm-6">
                                     <div class="aa-footer-widget">
                                         <div class="aa-footer-widget">
-                                            <h3>Contact Information</h3>
+                                            <h3>Thông tin liên hệ</h3>
                                             <address>
-                                                <p>IDB-Bhabon, Dhaka Bangladesh</p>
+                                                <p>3conMeo Ecommerce</p>
                                                 <p><span class="fa fa-phone"></span>019-7558-7588</p>
                                                 <p><span class="fa fa-envelope"></span>help@isdb-bisew.org</p>
                                             </address>
@@ -312,7 +312,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="aa-footer-bottom-area">
-                            <p>&copy; @DateTime.Now.Year - <a href="https://www.isdb-bisew.org">IsDB-BISEW</a></p>
+                            <p>&copy; @DateTime.Now.Year - <a href="https://www.isdb-bisew.org">3conMeo Ecommerce</a></p>
                         </div>
                     </div>
                 </div>

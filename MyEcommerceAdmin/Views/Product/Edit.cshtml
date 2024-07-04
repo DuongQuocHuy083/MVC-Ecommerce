@@ -20,8 +20,10 @@
         <div class="col-md-12">
             @using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
+
                 @Html.HiddenFor(x => x.ProductID)
                 @Html.HiddenFor(x => x.PicturePath)
+                @Html.AntiForgeryToken()
                 <div class="row g-3">
                     <div class="col-md-12">
                         @Html.LabelFor(x => x.Name, new { @class = "form-label fs-4" })

@@ -17,40 +17,13 @@ namespace MyEcommerceAdmin.Controllers
         public ActionResult Index()
         {
             ViewBag.Categories = db.Categories.Select(x => x.Name).ToList();
-           
+
             //ViewBag.TopRatedProducts = TopSoldProducts();
             ViewBag.RecentViewsProducts = RecentViewProducts();
 
             return View("Products");
         }
 
-        //TOP SOLD PRODUCTS
-        //public List<TopSoldProduct> TopSoldProducts()
-        //{
-        //    var prodList = (from prod in db.OrderDetails
-        //                    select new { prod.ProductID, prod.Quantity } into p
-        //                    group p by p.ProductID into g
-        //                    select new
-        //                    {
-        //                        pID = g.Key,
-        //                        sold = g.Sum(x => x.Quantity)
-        //                    }).OrderByDescending(y => y.sold).Take(3).ToList();
-
-
-
-        //    List<TopSoldProduct> topSoldProds = new List<TopSoldProduct>();
-
-        //    for (int i = 0; i < 3; i++)
-        //    {
-        //        topSoldProds.Add(new TopSoldProduct()
-        //        {
-        //            product = db.Products.Find(prodList[i].pID),
-        //            CountSold = Convert.ToInt32(prodList[i].sold)
-        //        });
-        //    }
-        //    return topSoldProds;
-        //}
-        //RECENT VIEWS PRODUCTS
         public IEnumerable<Product> RecentViewProducts()
         {
             if (TempShpData.UserID > 0)
@@ -71,7 +44,7 @@ namespace MyEcommerceAdmin.Controllers
             }
         }
 
-        //ADD TO CART
+        // THÊM VÀO GIỎ HÀNG
         public ActionResult AddToCart(int id)
         {
             OrderDetail OD = new OrderDetail();
@@ -89,11 +62,20 @@ namespace MyEcommerceAdmin.Controllers
             }
             TempShpData.items.Add(OD);
             AddRecentViewProduct(id);
-            return Redirect(TempData["returnURL"].ToString());
 
+            string returnURL = TempData["returnURL"] as string;
+            if (string.IsNullOrEmpty(returnURL))
+            {
+                // Nếu TempData["returnURL"] chưa được khởi tạo, bạn có thể gán giá trị mặc định
+                returnURL = Url.Action("Index", "Home");
+            }
+
+            return Redirect(returnURL);
         }
 
-        //VIEW DETAILS
+
+
+        // XEM CHI TIẾT SẢN PHẨM    
         public ActionResult ViewDetails(int id)
         {
             var prod = db.Products.Find(id);
@@ -112,10 +94,9 @@ namespace MyEcommerceAdmin.Controllers
             return View(prod);
         }
 
-        //WISHLIST
+        // DANH SÁCH YÊU THÍCH
         public ActionResult WishList(int id)
         {
-
             Wishlist wl = new Wishlist();
             wl.ProductID = id;
             wl.CustomerID = TempShpData.UserID;
@@ -123,15 +104,22 @@ namespace MyEcommerceAdmin.Controllers
             db.Wishlists.Add(wl);
             db.SaveChanges();
             AddRecentViewProduct(id);
-            ViewBag.WlItemsNo = db.Wishlists.Where(x => x.CustomerID == TempShpData.UserID).ToList().Count();
-            if (TempData["returnURL"].ToString() == "/")
+            ViewBag.WlItemsNo = db.Wishlists.Where(x => x.CustomerID == TempShpData.UserID).Count();
+
+            string returnURL = TempData["returnURL"] as string;
+            if (string.IsNullOrEmpty(returnURL))
+            {
+                returnURL = Url.Action("Index", "Home");
+            }
+
+            if (returnURL == "/")
             {
                 return RedirectToAction("Index", "Home");
             }
-            return Redirect(TempData["returnURL"].ToString());
-        }
 
-        //ADD RECENT VIEWS PRODUCT IN DB
+            return Redirect(returnURL);
+        }
+        // THÊM SẢN PHẨM XEM GẦN ĐÂY VÀO CSDL
         public void AddRecentViewProduct(int pid)
         {
             if (TempShpData.UserID > 0)
@@ -145,7 +133,7 @@ namespace MyEcommerceAdmin.Controllers
             }
         }
 
-        //ADD REVIEWS ABOUT PRODUCT
+        // THÊM ĐÁNH GIÁ SẢN PHẨM
         public ActionResult AddReview(int productID, FormCollection getReview)
         {
 
@@ -172,7 +160,7 @@ namespace MyEcommerceAdmin.Controllers
             return View(prods);
         }
 
-        //GET PRODUCTS BY CATEGORY
+        // LẤY SẢN PHẨM THEO DANH MỤC
         public ActionResult GetProductsByCategory(string categoryName, int? page)
         {
             ViewBag.Categories = db.Categories.Select(x => x.Name).ToList();
@@ -183,12 +171,12 @@ namespace MyEcommerceAdmin.Controllers
 
             var prods = db.Products.Where(x => x.SubCategory.Name == categoryName).ToList();
             return View("Products", prods.ToPagedList(page ?? 1, 9));
-            
+
         }
 
-        
 
-        //SEARCH BAR RESULT
+
+        // KẾT QUẢ TÌM KIẾM SẢN PHẨM
         public ActionResult Search(string product, int? page)
         {
             ViewBag.SubCategories = db.SubCategories.Select(x => x.Name).ToList();
@@ -215,7 +203,7 @@ namespace MyEcommerceAdmin.Controllers
 
         }
 
-        //  Filter Product By Price
+        // LỌC SẢN PHẨM THEO GIÁ
         public ActionResult FilterByPrice(int minPrice, int maxPrice, int? page)
         {
             ViewBag.SubCategories = db.SubCategories.Select(x => x.Name).ToList();

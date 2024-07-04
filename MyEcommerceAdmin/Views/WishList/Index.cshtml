@@ -5,72 +5,77 @@
 }
 
 <section id="aa-catg-head-banner">
-    <img src="~/Content/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+    <img src="~/Content/img/fashion/fashion-header-bg-8.jpg" alt="fashion img" class="img-fluid">
     <div class="aa-catg-head-banner-area">
         <div class="container">
             <div class="aa-catg-head-banner-content">
                 <h2>Wishlist Page</h2>
                 <ol class="breadcrumb">
-                    <li><a href="index.html">Home</a></li>
-                    <li class="active">Wishlist</li>
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Wishlist</li>
                 </ol>
             </div>
         </div>
     </div>
 </section>
-<!-- Cart view section -->
+
 <section id="cart-view">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="cart-view-area">
                     <div class="cart-view-table aa-wishlist-table">
-                        <form action="">
+                        @if (Session["username"] != null)
+                        {
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th></th>
                                             <th></th>
                                             <th>Product</th>
                                             <th>Price</th>
                                             <th>Stock Status</th>
-                                            <th></th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if (Session["username"] != null)
+                                        @foreach (var item in Model)
                                         {
-                                            foreach (var item in Model)
-                                            {
-
-                                                <tr>
-                                                    <td><a class="remove" href="@Url.Action("Remove", "WishList", new { id=item.WishlistID})"><fa class="fa fa-close"></fa></a></td>
-                                                    <td><a href="#"><img src="@Url.Content(item.Product.PicturePath)" alt=""></a></td>
-                                                    <td><a class="aa-cart-title" href="#">@item.Product.Name</a></td>
-                                                    <td>@item.Product.UnitPrice</td>
-                                                    <td>
-                                                        @if (item.Product.UnitInStock > 0)
-                                                        {
-                                                            <text>In Stock (@item.Product.UnitInStock)</text> }
-                                                        else
-                                                        { <text>Out of Stock (@item.Product.UnitInStock)</text>}
-                                                    </td>
-                                                    <td><a href="@Url.Action("AddToCart", "WishList", new { id=item.WishlistID})" class="aa-add-to-cart-btn">Add To Cart</a></td>
-                                                </tr>
-                                            }
+                                            <tr>
+                                                <td><a class="btn btn-sm btn-danger" href="@Url.Action("Remove", "WishList", new { id = item.WishlistID })"><i class="fa fa-close"></i></a></td>
+                                                <td>
+                                                    <a href="#">
+                                                        <img src="@Url.Content(item.Product.PicturePath)" alt="@item.Product.Name" class="img-fluid">
+                                                    </a>
+                                                    <a class="aa-cart-title text-decoration-none" href="#">@item.Product.Name</a>
+                                                </td>
+                                                <td>@item.Product.UnitPrice.ToString()</td>
+                                                <td>
+                                                    @if (item.Product.UnitInStock > 0)
+                                                    {
+                                                        <span class="text-success">In Stock (@item.Product.UnitInStock)</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-danger">Out of Stock</span>
+                                                    }
+                                                </td>
+                                                <td><a href="@Url.Action("AddToCart", "WishList", new { id = item.WishlistID })" class="btn btn-primary btn-sm">Add To Cart</a></td>
+                                            </tr>
                                         }
-                                        else
-                                        {
-                                            <text>Please login to view wishlist</text>}
                                     </tbody>
                                 </table>
                             </div>
-                        </form>
+                        }
+                        else
+                        {
+                            <div class="alert alert-warning text-center" role="alert">
+                                Please login to view wishlist.
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- / Cart view section -->

@@ -23,17 +23,17 @@ namespace MyEcommerceAdmin.Models
         public int SupplierID { get; set; }
         [Display(Name = "Category")]
         public int CategoryID { get; set; }
-        [Display(Name = "SubCategory")]
-        public Nullable<int> SubCategoryID { get; set; }
+        [Display(Name = "Sub Category ID")]
+        public int? SubCategoryID { get; set; }
         [Display(Name = "Unit Price")]
         public decimal UnitPrice { get; set; }
         [Display(Name = "Previous Price")]
-        public Nullable<decimal> OldPrice { get; set; }
-        public Nullable<decimal> Discount { get; set; }
+        public decimal? OldPrice { get; set; }
+        public decimal? Discount { get; set; }
         [Display(Name = "Stock")]
-        public Nullable<int> UnitInStock { get; set; }
+        public int? UnitInStock { get; set; }
         [Display(Name = "Available?")]
-        public Nullable<bool> ProductAvailable { get; set; }
+        public bool? ProductAvailable { get; set; }
         [Display(Name = "Description")]
         public string ShortDescription { get; set; }
         [Display(Name = "Picture")]
